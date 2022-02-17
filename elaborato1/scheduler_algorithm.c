@@ -23,11 +23,11 @@ task_struct *pick_next_task(runqueue_t *runqueue, time_t delta_exec)
 	list_head *nNode = runqueue->curr->run_list.next ;
 
 	// check if we reached the head of list_head
-	if (nNode == runqueue -> queue )
+	if (nNode == &runqueue -> queue )
 		nNode = nNode -> next;
 
 	// get the task_struct
-	task_struct *next = list_entry(nNode, task_struct, run_list);
+	next = list_entry(nNode, task_struct, run_list);
 
 	//=======================================================================
 #elif defined(SCHEDULER_PRIORITY)

@@ -34,7 +34,7 @@ task_struct *pick_next_task(runqueue_t *runqueue, time_t delta_exec)
 	//==== Implementatin of the Priority Scheduling algorithm ===============
 
 	// get the first element of the list
-	next = list_entry(runqueue->queue->next, task_struct, run_list);
+	next = list_entry(runqueue->queue.next, task_struct, run_list);
 
 	// Get its static priority.
 	time_t min = next->se.prio;

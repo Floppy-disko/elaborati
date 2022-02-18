@@ -20,7 +20,7 @@ task_struct *pick_next_task(runqueue_t *runqueue, time_t delta_exec)
 	//==== Implementation of the Round-Robin Scheduling algorithm ============
 
 	// get the next process after the current one
-	list_head *nNode = runqueue->curr->run_list.next ;
+	list_head *nNode = runqueue->curr->run_list.next;
 
 	// check if we reached the head of list_head
 	if (nNode == &runqueue -> queue )
@@ -35,6 +35,8 @@ task_struct *pick_next_task(runqueue_t *runqueue, time_t delta_exec)
 
 	// get the first element of the list
 	next = list_entry(runqueue->queue.next, task_struct, run_list);
+	//se volessi scegliere il prossimo nella lista invece che il primo così da evitare problemi nel caso tutti i processi abbiano stessa prorità:
+	//next = list_entry(runqueue->curr->run_list.next, task_struct, run_list);
 
 	// Get its static priority.
 	time_t min = next->se.prio;
@@ -44,7 +46,7 @@ task_struct *pick_next_task(runqueue_t *runqueue, time_t delta_exec)
 	list_for_each (it, &runqueue->queue) {
 		task_struct *entry = list_entry(it, task_struct, run_list);
 		// Check entry has a lower priority
-		if (entry->se.prio <= min) {
+		if (entry->se.prio <= min) {   //metto <= al posto di < così se ho tutti i processi con la stessa priorità non mi blocco a scegliere il primo che in perenne esecuzione ma scelgo l'ultimo che prima o poi termina
 			min = entry->se.prio;
 			next = entry;
 		}

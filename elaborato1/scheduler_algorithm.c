@@ -44,7 +44,7 @@ task_struct *pick_next_task(runqueue_t *runqueue, time_t delta_exec)
 	list_for_each (it, &runqueue->queue) {
 		task_struct *entry = list_entry(it, task_struct, run_list);
 		// Check entry has a lower priority
-		if (entry->se.prio < min) {
+		if (entry->se.prio <= min) {
 			min = entry->se.prio;
 			next = entry;
 		}

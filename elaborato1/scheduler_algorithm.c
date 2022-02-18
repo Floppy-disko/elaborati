@@ -35,8 +35,6 @@ task_struct *pick_next_task(runqueue_t *runqueue, time_t delta_exec)
 
 	// get the first element of the list
 	next = list_entry(runqueue->queue.next, task_struct, run_list);
-	//se volessi scegliere il prossimo nella lista invece che il primo così da evitare problemi nel caso tutti i processi abbiano stessa prorità:
-	//next = list_entry(runqueue->curr->run_list.next, task_struct, run_list);
 
 	// Get its static priority.
 	time_t min = next->se.prio;
